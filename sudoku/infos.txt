@@ -1,0 +1,13 @@
+Vai ser baseado nesse sudoku [https://github.com/marcelo046/sudoku_u], 
+mas com melhorias do tipo:
+
+* validar as entradas (quando escreve letras ao invés de um número, 
+  o programa trava)
+
+* ter mais sudokus, ou pegar um gerador de sudoku, 
+  podemos usar esse gerador [https://github.com/Average-user/sudoku-generator]
+  só dar os créditos pro criador
+
+* ter opção de escolher nível de dificuldade 
+  (coloca arquivo com vários sudokus ou manda o gerador de sudoku fazer
+   com tal dificuldade)

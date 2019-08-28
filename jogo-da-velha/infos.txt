@@ -1,0 +1,14 @@
+jogador contra jogador.
+
+sugestão de interface
+
+Vez do jogador: O
++---+---+---+
+| X | O |   |
++---+---+---+
+|   | X |   |
++---+---+---+
+|   |   |   |
++---+---+---+
+
+Escolha uma linha: 

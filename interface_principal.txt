@@ -1,0 +1,33 @@
+sugestao de interface principal (créditos e fonte como comentário no código)
+
+-- Text ascii art generated with patorjk web site (http://patorjk.com/software/taag-v1/). font: big
+-- Videogame ascii art by Joan Stark, adapted from (https://www.asciiart.eu/computers/game-consoles)
+
+  __  __ _____ _   _ _____  _____          __  __ ______  _____ 
+ |  \/  |_   _| \ | |_   _|/ ____|   /\   |  \/  |  ____|/ ____|
+ | \  / | | | |  \| | | | | |  __   /  \  | \  / | |__  | (___  
+ | |\/| | | | | . ` | | | | | |_ | / /\ \ | |\/| |  __|  \___ \ 
+ | |  | |_| |_| |\  |_| |_| |__| |/ ____ \| |  | | |____ ____) |
+ |_|  |_|_____|_| \_|_____|\_____/_/    \_\_|  |_|______|_____/ 
+                   __________________________
+                  |OFFo oON                  |
+                  | .----------------------. |
+                  | |   Escolha um jogo    | |
+                  | |                      | |
+                  | | 1: Jogo da velha     | |
+                  | | 2: Joquempo          | |
+                  | | 3: Jogo da forca     | |
+                  | | 4: Sudoku            | |
+                  | |______________________/ |
+                  |          _________       |
+                  |    .    (Minigames)      |
+                  |  _| |_   """""""""  .-.  |
+                  |-[_   _]-       .-. ( A ) |
+                  |   |_|         ( B ) '-'  |
+                  |    '           '-'       |
+                  |          ___   ___       |
+                  |         (___) (___)  ,., .
+                  |        select start ;:;:/
+                  |                   ,:;:'/
+                  '-----------------------´
+    Opcao: 

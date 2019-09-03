@@ -1,6 +1,7 @@
 sugestao de interface principal (créditos e fonte como comentário no código)
 
 -- Text ascii art generated with patorjk web site (http://patorjk.com/software/taag-v1/). font: big
+
 -- Videogame ascii art by Joan Stark, adapted from (https://www.asciiart.eu/computers/game-consoles)
 
   __  __ _____ _   _ _____  _____          __  __ ______  _____ 

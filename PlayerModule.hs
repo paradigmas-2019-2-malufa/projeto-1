@@ -18,7 +18,8 @@ module PlayerModule (
     addScorePlayerOnList,
     splitAttributes,
     parsePlayersList,
-    savePlayers
+    savePlayers,
+    loadPlayers
 ) where 
 
 import Data.List
@@ -149,10 +150,21 @@ parsePlayersList players =
         score = getScore player
 
 -- save players to file
-savePlayers players handle tempHandle filePlayersName tempName = do
-    hPutStr tempHandle $ unlines (parsePlayersList players)
+savePlayers players = do
+    let filePlayersName = "arq.txt"
+    handle <- openFile filePlayersName WriteMode
+    hPutStr handle $ unlines (parsePlayersList players)
     hClose handle
-    hClose tempHandle
-    removeFile filePlayersName
-    renameFile tempName filePlayersName
+
+-- load players from file and return in a list
+loadPlayers = do
+    let filePlayersName = "arq.txt"
+    handle <- openFile filePlayersName ReadMode
+    contents <- hGetContents handle
+    putStrLn contents
+    let jogadores = splitAttributes (lines contents)
+    clearScreen
+    hClose handle
+    return jogadores
+
 

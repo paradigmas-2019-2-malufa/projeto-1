@@ -1,2 +1,0 @@
-A game that the player has to guess the number that the
-computer chose randomly

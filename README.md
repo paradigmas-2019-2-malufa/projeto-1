@@ -1,11 +1,8 @@
-# projeto-1
-Projeto em Haskell
+# project-1
+Project in Haskell
 
-São 4 projetos<br>
-* jogo da velha
-* Pedra papel tesoura
-* Jogo da forca
-* Sudoku<br>
-
-Para mais informaões: [Documento sobre o projeto](https://docs.google.com/document/d/1V5Hd86ArNSguM_xZIU9WXd7AnDS3ktXM2DLT9le4klc/edit?usp=sharing)
-
+There are 4 games<br>
+* Hash game
+* rock paper and scissors
+* hangman game
+* guess the number

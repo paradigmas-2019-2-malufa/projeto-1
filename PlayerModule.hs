@@ -28,6 +28,7 @@ import System.Directory
 import System.Exit
 import Control.Monad
 import System.IO
+import System.Console.ANSI
 
 type Name = String
 type Score = Int
@@ -111,7 +112,8 @@ deletePlayer player players =
 addScorePlayer :: Score -> Player j -> Player j
 addScorePlayer _ Null = Null
 addScorePlayer score (Player name playerScore) = 
-    (Player name (playerScore+score))
+    if score<0 then (Player name 0)
+    else (Player name (playerScore+score))
 
 -- add score to a player from a list of players
 -- to subtract score, put number between parentheses: 
@@ -166,5 +168,3 @@ loadPlayers = do
     clearScreen
     hClose handle
     return jogadores
-
-

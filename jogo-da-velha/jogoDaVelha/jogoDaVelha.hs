@@ -91,7 +91,7 @@ registerPlayer option = do
         file <- openFile "option.txt" WriteMode
         hPutStrLn file (show ((Player name 0): option))
         hClose file
-        putStrLn("Player " ++ name ++ "successfully registered!!")
+        putStrLn("Player " ++ name ++ " successfully registered!!")
         putStr("\n Press <Enter> to continue...")
         getChar
         menu ((Player name 0):option)

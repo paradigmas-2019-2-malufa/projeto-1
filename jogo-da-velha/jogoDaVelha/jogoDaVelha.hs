@@ -60,6 +60,7 @@ menu option = do
 
 runOption :: Players -> Char -> IO Players
 runOption option '1' = registerPlayer option
+runOption option '2' = prepareGame option
 runOption option '0' = do
     putStrLn("\nThanks for playing!\n")
     {-go back to manu gameboy-}
@@ -101,3 +102,30 @@ validPlayer [] _ = False
 validPlayer ((Player n p):xs) name --s:xs
                 |(n == name) = True
                 |otherwise = validPlayer xs name
+prepareGame :: Players -> IO Players
+prepareGame option = do 
+        putStrLn "Digit the name of your rival"
+        player1 <- getLine
+        if not (validPlayer option player1) then do 
+            putStrLn "\nPlayer not exists!"
+            putStr "\nPress enter to continue"
+            getChar
+            menu option
+        else do
+            player2 <- getLine
+            if not(validPlayer option player2) then do
+                putStrLn "\nPlayer not exists!"
+                putStr "\nPress enter to continue"
+                getChar
+                menu option
+            else do
+                newGame option player1 player2
+
+newGame :: Players -> Name -> Name -> IO Players
+newGame option player1 player2 = do
+    putStrLn ("\nBegin the game: " ++  player1 ++ " vs "++ player2)
+    putStrLn ("\n" ++ player1 ++ " will be \'X\' and "++ player2 ++ "will be \'O\'")
+    runGame option ['1'..'9'] player1 player2 0
+
+runGame ::Players -> GameTable -> Name ->Name -> Turn -> IO Players
+runGame option  gtable player1 player2 turn = menu option

@@ -9,14 +9,13 @@ type Name = String
 type Score = Int
 type GameTable = [Char]
 
-data Player = Player Name Score
-    deriving (Show, Eq, Read)
+data Player = Player Name Score deriving (Show, Eq, Read)
 
 
 
 
-my_main :: IO() 
-my_main = do
+startHashGame :: IO() 
+startHashGame = do
     {catch (readFile) treat_error;}
     where
         readFile = do
@@ -120,8 +119,8 @@ newGame option player1 player2 = do
 
 newTable ::GameTable -> Turn -> Char ->GameTable
 newTable (x:xs) turn element 
-    |((x == element)&& (turn  == 0)) = (['X'] ++ xs)
-    |((x == element)&& (turn  == 1)) = (['0'] ++ xs)
+    |((x == element) && (turn  == 0)) = (['X'] ++ xs)
+    |((x == element) && (turn  == 1)) = (['0'] ++ xs)
     | otherwise =  x:(newTable xs turn element)
 
 runGame ::Players -> GameTable -> Name ->Name -> Turn -> IO Players
@@ -131,8 +130,7 @@ runGame option  gtable player1 player2 turn = do
         "\n                              ---------------\n" ++ "                              " ++
         (show (gtable !! 3)) ++ " | " ++ (show (gtable !! 4)) ++ " | " ++ (show (gtable !! 5)) ++
         "\n                              ---------------\n" ++ "                              " ++
-        (show (gtable !! 6)) ++ " | " ++ (show (gtable !! 7)) ++ " | " ++ (show (gtable !! 8)) ++
-        "\n")
+        (show (gtable !! 6)) ++ " | " ++ (show (gtable !! 7)) ++ " | " ++ (show (gtable !! 8)) ++"\n")
     -- getChar
     -- menu option
     if (winPlayer1 gtable) then do 
@@ -159,14 +157,14 @@ runGame option  gtable player1 player2 turn = do
             getChar
             menu (read refreshedData)
         else do 
-            if (length (intersect "123456789 gtable") == 0 ) then do 
+            if ((length (intersect "123456789" gtable)) == 0 ) then do 
                 putStrLn "Fail! Both players loses"
                 putStrLn "Press enter to return to menu"
                 getChar
                 menu option
             else do 
                 if (turn == 0 ) then do 
-                    putStr (player1 ++ ", your turn")
+                    putStr ((show player1) ++ ", your turn")
                     op <- getChar
                     getChar
                     if not (elem op ['1'..'9']) then do 
@@ -179,7 +177,7 @@ runGame option  gtable player1 player2 turn = do
                         else    
                             runGame option (newTable gtable turn op ) player1 player2 1 
                 else do
-                    putStr (player2 ++ ", your turn")
+                    putStr ((show player2) ++ ", your turn")
                     op <- getChar
                     getChar
                     if not (elem op ['1'..'9']) then do 
@@ -193,3 +191,52 @@ runGame option  gtable player1 player2 turn = do
                             runGame option (newTable gtable turn op ) player1 player2 0
 
 
+winPlayer1 :: GameTable -> Bool
+winPlayer1 table 
+  
+	| (((table !! 0) == 'X') && ((table !! 1) == 'X') && ((table !! 2) == 'X')) = True
+	| (((table !! 3) == 'X') && ((table !! 4) == 'X') && ((table !! 5) == 'X')) = True
+	| (((table !! 6) == 'X') && ((table !! 7) == 'X') && ((table !! 8) == 'X')) = True
+	
+	| (((table !! 0) == 'X') && ((table !! 3) == 'X') && ((table !! 6) == 'X')) = True
+	| (((table !! 1) == 'X') && ((table !! 4) == 'X') && ((table !! 7) == 'X')) = True
+	| (((table !! 2) == 'X') && ((table !! 5) == 'X') && ((table !! 8) == 'X')) = True
+
+	| (((table !! 0) == 'X') && ((table !! 4) == 'X') && ((table !! 8) == 'X')) = True
+	| (((table !! 2) == 'X') && ((table !! 4) == 'X') && ((table !! 6) == 'X')) = True
+	| otherwise = False
+
+winPlayer2 :: GameTable -> Bool
+winPlayer2 table   
+    | (((table !! 0) == 'X') && ((table !! 1) == 'X') && ((table !! 2) == 'X')) = True
+    | (((table !! 3) == 'X') && ((table !! 4) == 'X') && ((table !! 5) == 'X')) = True
+    | (((table !! 6) == 'X') && ((table !! 7) == 'X') && ((table !! 8) == 'X')) = True
+
+    | (((table !! 0) == 'X') && ((table !! 3) == 'X') && ((table !! 6) == 'X')) = True
+    | (((table !! 1) == 'X') && ((table !! 4) == 'X') && ((table !! 7) == 'X')) = True
+    | (((table !! 2) == 'X') && ((table !! 5) == 'X') && ((table !! 8) == 'X')) = True
+
+    | (((table !! 0) == 'X') && ((table !! 4) == 'X') && ((table !! 8) == 'X')) = True
+    | (((table !! 2) == 'X') && ((table !! 4) == 'X') && ((table !! 6) == 'X')) = True
+    | otherwise = False
+
+refreshScore :: Players -> String-> Players
+refreshScore ((Player name  score ):xs) winner
+    | (name == winner) = [(Player name (score + 1))]++xs
+    | otherwise = (Player name score):(refreshScore xs winner)
+
+
+showRanking :: Players -> IO()
+showRanking [] = return []
+showRanking (x:xs) = do
+    putStrLn((getName x) ++ " win "++(show (getScore x)) ++ " times" )
+    showRanking xs
+    
+getName :: Player -> Name
+getName (Player name _) = name
+
+getScore :: Player -> Score
+getChar (Player _ score ) = score
+
+order :: Players -> Players
+order option = sortBy ( compare `on` getScore) option

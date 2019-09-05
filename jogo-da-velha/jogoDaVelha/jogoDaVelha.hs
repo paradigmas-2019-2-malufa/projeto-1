@@ -2,7 +2,7 @@ import Control.Exception
 import System.Process
 import System.IO.Error
 import System.IO
-
+import Data.List --intersect
 type Players = [Player]
 type Turn = Int
 type Name = String
@@ -118,6 +118,12 @@ newGame option player1 player2 = do
     putStrLn ("\n" ++ player1 ++ " will be \'X\' and "++ player2 ++ "will be \'O\'")
     runGame option ['1'..'9'] player1 player2 0
 
+newTable ::GameTable -> Turn -> Char ->GameTable
+newTable (x:xs) turn element 
+    |((x == element)&& (turn  == 0)) = (['X'] ++ xs)
+    |((x == element)&& (turn  == 1)) = (['0'] ++ xs)
+    | otherwise =  x:(newTable xs turn element)
+
 runGame ::Players -> GameTable -> Name ->Name -> Turn -> IO Players
 runGame option  gtable player1 player2 turn = do
     putStrLn ("\n" ++ "                              " ++
@@ -127,16 +133,63 @@ runGame option  gtable player1 player2 turn = do
         "\n                              ---------------\n" ++ "                              " ++
         (show (gtable !! 6)) ++ " | " ++ (show (gtable !! 7)) ++ " | " ++ (show (gtable !! 8)) ++
         "\n")
-    getChar
-    menu option
-    -- if (player1 gtable) then do 
-    --     putStrLn ("Congratulations " ++ player1 ++ "! You win!!")
-    --     arq <- openFile "dados.txt" WriteMode
-    --     hPutStrLn arq (show (refreshScore dados player1))
-    --     hClose arq
-    --     arq <- openFile "dados.txt" ReadMode
-    --     dados_atualizados <- hGetLine arq
-    --     hClose arq
-    --     putStr "\nPress enter to return to the menu..."
-    --     getChar
-    --     menu (read dados_atualizados)
+    -- getChar
+    -- menu option
+    if (winPlayer1 gtable) then do 
+        putStrLn ("Congratulations " ++ (show player1) ++ "! You win!!")
+        arq <- openFile "dados.txt" WriteMode
+        hPutStrLn arq (show (refreshScore dados player1))
+        hClose arq
+        arq <- openFile "dados.txt" ReadMode
+        refreshedData <- hGetLine arq
+        hClose arq
+        putStr "\nPress enter to return to menu..."
+        getChar
+        menu (read refreshedData)
+    else do
+        if (winPlayer2 gtable) then do
+            putStrLn ("Congratulations " ++ (show player2) ++ "! You win!!")
+            arq <- openFile "dados.txt" WriteMode
+            hPutStrLn arq (show (refreshScore dados player2))
+            hClose arq
+            arq <- openFile "dados.txt" ReadMode
+            refreshedData <- hGetLine arq
+            hClose arq
+            putStr "\nPress enter to return to menu..."
+            getChar
+            menu (read refreshedData)
+        else do 
+            if (length (intersect "123456789 gtable") == 0 ) then do 
+                putStrLn "Fail! Both players loses"
+                putStrLn "Press enter to return to menu"
+                getChar
+                menu option
+            else do 
+                if (turn == 0 ) then do 
+                    putStr (player1 ++ ", your turn")
+                    op <- getChar
+                    getChar
+                    if not (elem op ['1'..'9']) then do 
+                        putStrLn "Option invalid! Try again"
+                        runGame option player1 player2 0
+                    else 
+                        if not (elem op gtable) then do 
+                            putStrln "Option already choosed!"
+                            runGame option player1 player2 0
+                        else    
+                            runGame option (newTable gtable turn op ) player1 player2 1 
+                else do
+                    putStr (player2 ++ ", your turn")
+                    op <- getChar
+                    getChar
+                    if not (elem op ['1'..'9']) then do 
+                        putStrLn "Option invalid! Try again"
+                        runGame option player1 player2 1
+                    else 
+                        if not (elem op gtable) then do 
+                            putStrln "Option already choosed!"
+                            runGame option player1 player2 1
+                        else    
+                            runGame option (newTable gtable turn op ) player1 player2 0
+
+

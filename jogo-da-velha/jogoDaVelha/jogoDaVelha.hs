@@ -135,10 +135,10 @@ runGame option  gtable player1 player2 turn = do
     -- menu option
     if (winPlayer1 gtable) then do 
         putStrLn ("Congratulations " ++ (show player1) ++ "! You win!!")
-        arq <- openFile "dados.txt" WriteMode
-        hPutStrLn arq (show (refreshScore dados player1))
+        arq <- openFile "option.txt" WriteMode
+        hPutStrLn arq (show (refreshScore option player1))
         hClose arq
-        arq <- openFile "dados.txt" ReadMode
+        arq <- openFile "option.txt" ReadMode
         refreshedData <- hGetLine arq
         hClose arq
         putStr "\nPress enter to return to menu..."
@@ -147,10 +147,10 @@ runGame option  gtable player1 player2 turn = do
     else do
         if (winPlayer2 gtable) then do
             putStrLn ("Congratulations " ++ (show player2) ++ "! You win!!")
-            arq <- openFile "dados.txt" WriteMode
-            hPutStrLn arq (show (refreshScore dados player2))
+            arq <- openFile "option.txt" WriteMode
+            hPutStrLn arq (show (refreshScore option player2))
             hClose arq
-            arq <- openFile "dados.txt" ReadMode
+            arq <- openFile "option.txt" ReadMode
             refreshedData <- hGetLine arq
             hClose arq
             putStr "\nPress enter to return to menu..."

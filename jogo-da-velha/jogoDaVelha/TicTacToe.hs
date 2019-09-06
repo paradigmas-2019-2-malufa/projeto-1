@@ -1,14 +1,18 @@
+-- startTicTacToe, Players, Player
+module TicTacToe (
+    startTicTacToe, Players, Player,
+   menu,runOption,validPlayer,
+    showRanking,order,getScore,getName,refreshScore,
+    winPlayer1,winPlayer2,runGame,prepareGame,registerPlayer,
+    newTable,newGame
+) where
+
 import Control.Exception
 import System.Process
 import System.IO.Error
 import System.IO
 import Data.Function
 import Data.List --intersect
-
-module TicTacToe (
-    startTicTacToe, Players, Player,
-    Name,Turn,Score,
-) where
 
 type Players = [Player]
 type Turn = Int

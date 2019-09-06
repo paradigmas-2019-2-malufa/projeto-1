@@ -120,8 +120,8 @@ newGame option player1 player2 = do
 
 newTable ::GameTable -> Turn -> Char ->GameTable
 newTable (x:xs) turn element 
-    |((x == element) && (turn  == 0)) = (['X'] ++ xs)
-    |((x == element) && (turn  == 1)) = (['0'] ++ xs)
+    |((x == element) && (turn  == 0)) = (['x'] ++ xs)
+    |((x == element) && (turn  == 1)) = (['o'] ++ xs)
     | otherwise =  x:(newTable xs turn element)
 
 runGame ::Players -> GameTable -> Name ->Name -> Turn -> IO Players
@@ -190,7 +190,6 @@ runGame option  gtable player1 player2 turn = do
                             runGame option (newTable gtable turn op ) player1 player2 1
                         else    
                             runGame option (newTable gtable turn op ) player1 player2 0
-
 
 winPlayer1 :: GameTable -> Bool
 winPlayer1 table 

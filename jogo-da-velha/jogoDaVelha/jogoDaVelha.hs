@@ -48,8 +48,8 @@ menu option = do
                 putStrLn "3 - RANKING VIEW"
                 putStrLn "0 - EXIT"
                 putStr "OPTION: "
-                op <- getChar
-                getChar
+                op <- System.IO.getChar
+                System.IO.getChar
                 runOption option op
 
 runOption :: Players -> Char -> IO Players
@@ -63,7 +63,7 @@ runOption option '0' = do
 runOption option _ = do
     putStrLn("\nInvalid option! Try again!")
     putStr ("\n Press enter to continue....")
-    getChar
+    System.IO.getChar
     menu option
 
 
@@ -74,7 +74,7 @@ registerPlayer option = do
     if(validPlayer option name) then do
         putStrLn ("This player "++ (show name) ++" already exists, try another...")
         putStr ("\n Press enter to continue....")
-        getChar
+        System.IO.getChar
         menu option
     else do
         file <- openFile "option.txt" WriteMode
@@ -82,7 +82,7 @@ registerPlayer option = do
         hClose file
         putStrLn("Player " ++ name ++ " successfully registered!!")
         putStr("\n Press enter to continue...")
-        getChar
+        System.IO.getChar
         menu ((Player name 0):option)
 
 validPlayer :: Players -> Name -> Bool
@@ -98,7 +98,7 @@ prepareGame option = do
         if not (validPlayer option player1) then do 
             putStrLn ("\n"++ (show player1) ++ " not exists!")
             putStr "\nPress enter to continue"
-            getChar
+            System.IO.getChar
             menu option
         else do
             putStr "And the name of your rival: "
@@ -106,7 +106,7 @@ prepareGame option = do
             if not (validPlayer option player2) then do
                 putStrLn( "\n"++ (show player2) ++ " not exists!")
                 putStr "\nPress enter to continue"
-                getChar
+                System.IO.getChar
                 menu option
             else do
                 newGame option player1 player2
@@ -131,7 +131,7 @@ runGame option  gtable player1 player2 turn = do
         (show (gtable !! 3)) ++ " | " ++ (show (gtable !! 4)) ++ " | " ++ (show (gtable !! 5)) ++
         "\n                              ---------------\n" ++ "                              " ++
         (show (gtable !! 6)) ++ " | " ++ (show (gtable !! 7)) ++ " | " ++ (show (gtable !! 8)) ++"\n")
-    -- getChar
+    -- System.IO.getChar
     -- menu option
     if (winPlayer1 gtable) then do 
         putStrLn ("Congratulations " ++ (show player1) ++ "! You win!!")
@@ -142,7 +142,7 @@ runGame option  gtable player1 player2 turn = do
         refreshedData <- hGetLine arq
         hClose arq
         putStr "\nPress enter to return to menu..."
-        getChar
+        System.IO.getChar
         menu (read refreshedData)
     else do
         if (winPlayer2 gtable) then do
@@ -154,19 +154,19 @@ runGame option  gtable player1 player2 turn = do
             refreshedData <- hGetLine arq
             hClose arq
             putStr "\nPress enter to return to menu..."
-            getChar
+            System.IO.getChar
             menu (read refreshedData)
         else do 
             if ((length (intersect "123456789" gtable)) == 0 ) then do 
                 putStrLn "Fail! Both players loses"
                 putStrLn "Press enter to return to menu"
-                getChar
+                System.IO.getChar
                 menu option
             else do 
                 if (turn == 0 ) then do 
                     putStr ((show player1) ++ ", your turn")
-                    op <- getChar
-                    getChar
+                    op <- System.IO.getChar
+                    System.IO.getChar
                     if not (elem op ['1'..'9']) then do 
                         putStrLn "Option invalid! Try again"
                         runGame option player1 player2 0
@@ -178,8 +178,8 @@ runGame option  gtable player1 player2 turn = do
                             runGame option (newTable gtable turn op ) player1 player2 1 
                 else do
                     putStr ((show player2) ++ ", your turn")
-                    op <- getChar
-                    getChar
+                    op <- System.IO.getChar
+                    System.IO.getChar
                     if not (elem op ['1'..'9']) then do 
                         putStrLn "Option invalid! Try again"
                         runGame option player1 player2 1
@@ -194,30 +194,30 @@ runGame option  gtable player1 player2 turn = do
 winPlayer1 :: GameTable -> Bool
 winPlayer1 table 
   
-	| (((table !! 0) == 'X') && ((table !! 1) == 'X') && ((table !! 2) == 'X')) = True
-	| (((table !! 3) == 'X') && ((table !! 4) == 'X') && ((table !! 5) == 'X')) = True
-	| (((table !! 6) == 'X') && ((table !! 7) == 'X') && ((table !! 8) == 'X')) = True
+	| (((table !! 0) == 'x') && ((table !! 1) == 'x') && ((table !! 2) == 'x')) = True
+	| (((table !! 3) == 'x') && ((table !! 4) == 'x') && ((table !! 5) == 'x')) = True
+	| (((table !! 6) == 'x') && ((table !! 7) == 'x') && ((table !! 8) == 'x')) = True
 	
-	| (((table !! 0) == 'X') && ((table !! 3) == 'X') && ((table !! 6) == 'X')) = True
-	| (((table !! 1) == 'X') && ((table !! 4) == 'X') && ((table !! 7) == 'X')) = True
-	| (((table !! 2) == 'X') && ((table !! 5) == 'X') && ((table !! 8) == 'X')) = True
+	| (((table !! 0) == 'x') && ((table !! 3) == 'x') && ((table !! 6) == 'x')) = True
+	| (((table !! 1) == 'x') && ((table !! 4) == 'x') && ((table !! 7) == 'x')) = True
+	| (((table !! 2) == 'x') && ((table !! 5) == 'x') && ((table !! 8) == 'x')) = True
 
-	| (((table !! 0) == 'X') && ((table !! 4) == 'X') && ((table !! 8) == 'X')) = True
-	| (((table !! 2) == 'X') && ((table !! 4) == 'X') && ((table !! 6) == 'X')) = True
+	| (((table !! 0) == 'x') && ((table !! 4) == 'x') && ((table !! 8) == 'x')) = True
+	| (((table !! 2) == 'x') && ((table !! 4) == 'x') && ((table !! 6) == 'x')) = True
 	| otherwise = False
 
 winPlayer2 :: GameTable -> Bool
 winPlayer2 table   
-    | (((table !! 0) == 'X') && ((table !! 1) == 'X') && ((table !! 2) == 'X')) = True
-    | (((table !! 3) == 'X') && ((table !! 4) == 'X') && ((table !! 5) == 'X')) = True
-    | (((table !! 6) == 'X') && ((table !! 7) == 'X') && ((table !! 8) == 'X')) = True
+    | (((table !! 0) == 'o') && ((table !! 1) == 'o') && ((table !! 2) == 'o')) = True
+    | (((table !! 3) == 'o') && ((table !! 4) == 'o') && ((table !! 5) == 'o')) = True
+    | (((table !! 6) == 'o') && ((table !! 7) == 'o') && ((table !! 8) == 'o')) = True
 
-    | (((table !! 0) == 'X') && ((table !! 3) == 'X') && ((table !! 6) == 'X')) = True
-    | (((table !! 1) == 'X') && ((table !! 4) == 'X') && ((table !! 7) == 'X')) = True
-    | (((table !! 2) == 'X') && ((table !! 5) == 'X') && ((table !! 8) == 'X')) = True
+    | (((table !! 0) == 'o') && ((table !! 3) == 'o') && ((table !! 6) == 'o')) = True
+    | (((table !! 1) == 'o') && ((table !! 4) == 'o') && ((table !! 7) == 'o')) = True
+    | (((table !! 2) == 'o') && ((table !! 5) == 'o') && ((table !! 8) == 'o')) = True
 
-    | (((table !! 0) == 'X') && ((table !! 4) == 'X') && ((table !! 8) == 'X')) = True
-    | (((table !! 2) == 'X') && ((table !! 4) == 'X') && ((table !! 6) == 'X')) = True
+    | (((table !! 0) == 'o') && ((table !! 4) == 'o') && ((table !! 8) == 'o')) = True
+    | (((table !! 2) == 'o') && ((table !! 4) == 'o') && ((table !! 6) == 'o')) = True
     | otherwise = False
 
 refreshScore :: Players -> String-> Players
@@ -236,7 +236,7 @@ getName :: Player -> Name
 getName (Player name _) = name
 
 getScore :: Player -> Score
-getChar (Player _ score ) = score
+System.IO.getChar (Player _ score ) = score
 
 order :: Players -> Players
 order option = sortBy ( compare `on` getScore) option

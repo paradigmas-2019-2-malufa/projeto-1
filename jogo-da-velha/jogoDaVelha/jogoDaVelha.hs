@@ -172,7 +172,7 @@ runGame option  gtable player1 player2 turn = do
                         runGame option player1 player2 0
                     else 
                         if not (elem op gtable) then do 
-                            putStrln "Option already choosed!"
+                            putStrLn "Option already choosed!"
                             runGame option player1 player2 0
                         else    
                             runGame option (newTable gtable turn op ) player1 player2 1 
@@ -185,7 +185,7 @@ runGame option  gtable player1 player2 turn = do
                         runGame option player1 player2 1
                     else 
                         if not (elem op gtable) then do 
-                            putStrln "Option already choosed!"
+                            putStrLn "Option already choosed!"
                             runGame option player1 player2 1
                         else    
                             runGame option (newTable gtable turn op ) player1 player2 0

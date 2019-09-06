@@ -2,17 +2,18 @@ import Control.Exception
 import System.Process
 import System.IO.Error
 import System.IO
+import Data.Function
 import Data.List --intersect
+
+
 type Players = [Player]
 type Turn = Int
 type Name = String
 type Score = Int
 type GameTable = [Char]
 
-data Player = Player Name Score deriving (Show, Eq, Read)
-
-
-
+data Player = Player Name Score
+    deriving (Show, Read, Eq)
 
 startHashGame :: IO() 
 startHashGame = do
@@ -98,7 +99,7 @@ prepareGame option = do
         if not (validPlayer option player1) then do 
             putStrLn ("\n"++ (show player1) ++ " not exists!")
             putStr "\nPress enter to continue"
-            System.IO.getChar
+            getChar
             menu option
         else do
             putStr "And the name of your rival: "
@@ -106,7 +107,7 @@ prepareGame option = do
             if not (validPlayer option player2) then do
                 putStrLn( "\n"++ (show player2) ++ " not exists!")
                 putStr "\nPress enter to continue"
-                System.IO.getChar
+                getChar
                 menu option
             else do
                 newGame option player1 player2
@@ -135,24 +136,24 @@ runGame option  gtable player1 player2 turn = do
     -- menu option
     if (winPlayer1 gtable) then do 
         putStrLn ("Congratulations " ++ (show player1) ++ "! You win!!")
-        arq <- openFile "option.txt" WriteMode
-        hPutStrLn arq (show (refreshScore option player1))
-        hClose arq
-        arq <- openFile "option.txt" ReadMode
-        refreshedData <- hGetLine arq
-        hClose arq
+        file <- openFile "option.txt" WriteMode
+        hPutStrLn file (show (refreshScore option player1))
+        hClose file
+        file <- openFile "option.txt" ReadMode
+        refreshedData <- hGetLine file
+        hClose file
         putStr "\nPress enter to return to menu..."
         System.IO.getChar
         menu (read refreshedData)
     else do
         if (winPlayer2 gtable) then do
             putStrLn ("Congratulations " ++ (show player2) ++ "! You win!!")
-            arq <- openFile "option.txt" WriteMode
-            hPutStrLn arq (show (refreshScore option player2))
-            hClose arq
-            arq <- openFile "option.txt" ReadMode
-            refreshedData <- hGetLine arq
-            hClose arq
+            file <- openFile "option.txt" WriteMode
+            hPutStrLn file (show (refreshScore option player2))
+            hClose file
+            file <- openFile "option.txt" ReadMode
+            refreshedData <- hGetLine file
+            hClose file
             putStr "\nPress enter to return to menu..."
             System.IO.getChar
             menu (read refreshedData)
@@ -169,11 +170,11 @@ runGame option  gtable player1 player2 turn = do
                     System.IO.getChar
                     if not (elem op ['1'..'9']) then do 
                         putStrLn "Option invalid! Try again"
-                        runGame option player1 player2 0
+                        runGame option (newTable gtable turn op ) player1 player2 0
                     else 
                         if not (elem op gtable) then do 
                             putStrLn "Option already choosed!"
-                            runGame option player1 player2 0
+                            runGame option (newTable gtable turn op ) player1 player2 0
                         else    
                             runGame option (newTable gtable turn op ) player1 player2 1 
                 else do
@@ -182,11 +183,11 @@ runGame option  gtable player1 player2 turn = do
                     System.IO.getChar
                     if not (elem op ['1'..'9']) then do 
                         putStrLn "Option invalid! Try again"
-                        runGame option player1 player2 1
+                        runGame option (newTable gtable turn op ) player1 player2 1
                     else 
                         if not (elem op gtable) then do 
                             putStrLn "Option already choosed!"
-                            runGame option player1 player2 1
+                            runGame option (newTable gtable turn op ) player1 player2 1
                         else    
                             runGame option (newTable gtable turn op ) player1 player2 0
 
@@ -227,7 +228,7 @@ refreshScore ((Player name  score ):xs) winner
 
 
 showRanking :: Players -> IO()
-showRanking [] = return []
+showRanking [] = return ()
 showRanking (x:xs) = do
     putStrLn((getName x) ++ " win "++(show (getScore x)) ++ " times" )
     showRanking xs
@@ -236,7 +237,7 @@ getName :: Player -> Name
 getName (Player name _) = name
 
 getScore :: Player -> Score
-System.IO.getChar (Player _ score ) = score
+getScore (Player _ score ) = score
 
 order :: Players -> Players
 order option = sortBy ( compare `on` getScore) option

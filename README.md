@@ -49,5 +49,7 @@ $./minigames.out
 |Fabiana Luiza V. Pfeilsticker Ribas|[@FabianaRibas](https://github.com/FabianaRibas)|
 |Marcelo Araújo|[@santosm46](https://github.com/santosm46)|
 |Lucas Lopes Pereira|[@LucasPLopes](https://github.com/LucasPLopes)|
+|Fabrício Monteiro|[@fabmont](https://github.com/fabmont)|
 ||[]()|
+
 

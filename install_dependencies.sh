@@ -1,2 +1,2 @@
-cabal update
-cabal install ansi-terminal
+sudo apt-get update
+sudo apt-get install haskell-platform

@@ -1,8 +1,12 @@
+*.txt
+.fuse*
+run.sh
 dist
 dist-*
 cabal-dev
 *.o
 *.hi
+*.out
 *.chi
 *.chs.h
 *.dyn_o

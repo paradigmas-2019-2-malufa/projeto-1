@@ -4,7 +4,7 @@ Project in Haskell
 This project resulted in the development of a Game Boy-inspired console game.
 The Game Boy is an 8-bit handheld game console developed and manufactured by Nintendo.
 
-There are 4 games: video_game: in the project:
+There are 4 games in the project:
 
 * Tic-Tac-Toe game :o: :x:
 * Rock paper and scissors :facepunch: :hand: :v:

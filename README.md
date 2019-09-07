@@ -1,3 +1,5 @@
+We are students of software engineering at [University of Brasilia](https://www.unb.br)(UnB-FGA) studying programming paradigms with our teacher advisor [Milene Serrano](@mileneserrano).
+
 # Project 1
 Project in Haskell 
 
@@ -50,6 +52,4 @@ $./minigames.out
 |Marcelo Araújo|[@santosm46](https://github.com/santosm46)|
 |Lucas Lopes Pereira|[@LucasPLopes](https://github.com/LucasPLopes)|
 |Fabrício Monteiro|[@fabmont](https://github.com/fabmont)|
-||[]()|
-
-
+|Matheus Clemente|[@matheusclemente](https://github.com/matheusclemente)|

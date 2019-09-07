@@ -51,7 +51,7 @@ startTicTacToe = do
 menu :: Players -> IO Players
 menu option = do
                 system "clear || cls"
-                putStrLn "::::::::::::::::::::::::::::::::::::::: Hash Game :::::::::::::::::::::::::::::::::::::::"
+                putStrLn "::::::::::::::::::::::::::::::::::::::: Tic Tac Toe :::::::::::::::::::::::::::::::::::::::"
                 putStrLn "\n1 - REGISTER A PLAYER"
                 putStrLn "2 - PLAY"
                 putStrLn "3 - RANKING VIEW"
@@ -173,28 +173,28 @@ runGame option  gtable player1 player2 turn = do
                 menu option
             else do 
                 if (turn == 0 ) then do 
-                    putStr ((show player1) ++ ", your turn")
+                    putStr ((show player1) ++ ", your turn ")
                     op <- System.IO.getChar
                     System.IO.getChar
                     if not (elem op ['1'..'9']) then do 
-                        putStrLn "Option invalid! Try again"
+                        putStrLn "Option invalid! Try again "
                         runGame option (newTable gtable turn op ) player1 player2 0
                     else 
                         if not (elem op gtable) then do 
-                            putStrLn "Option already choosed!"
+                            putStrLn "Option already choosed! "
                             runGame option (newTable gtable turn op ) player1 player2 0
                         else    
                             runGame option (newTable gtable turn op ) player1 player2 1 
                 else do
-                    putStr ((show player2) ++ ", your turn")
+                    putStr ((show player2) ++ ", your turn ")
                     op <- System.IO.getChar
                     System.IO.getChar
                     if not (elem op ['1'..'9']) then do 
-                        putStrLn "Option invalid! Try again"
+                        putStrLn "Option invalid! Try again "
                         runGame option (newTable gtable turn op ) player1 player2 1
                     else 
                         if not (elem op gtable) then do 
-                            putStrLn "Option already choosed!"
+                            putStrLn "Option already choosed! "
                             runGame option (newTable gtable turn op ) player1 player2 1
                         else    
                             runGame option (newTable gtable turn op ) player1 player2 0

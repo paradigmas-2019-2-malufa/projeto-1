@@ -3,7 +3,11 @@ import System.Exit
 import Control.Monad
 import Common
 import PlayerOptions (playerOptions)
--- import GuessTheNumber (startGuessTheNumber)
+import GuessTheNumber (startGuessTheNumber)
+import PlayerModule
+
+-- Text ascii art generated with patorjk web site (http://patorjk.com/software/taag-v1/). font: big
+-- Videogame ascii art by Joan Stark, adapted from (https://www.asciiart.eu/computers/game-consoles)
 
 printMenu :: IO ()
 printMenu = do
@@ -30,24 +34,36 @@ printMenu = do
     putStr "                  |  _| |_   \"\"\"\"\"\"\"\"\"  .-.  |\n"
     putStr "                  |-[_   _]-       .-. ( A ) |\n"
     putStr "                  |   |_|         ( B ) '-'  |\n"
-    putStr "                  |    '           '-'       |\n"
-    putStr "                  |          ___   ___       |\n"
-    putStr "                  |         (___) (___)  ,., .\n"
-    putStr "                  |                     ;:;:/\n"
+    putStr "                  |    '           '-'       |    when you're typing\n"
+    putStr "                  |          ___   ___       |    the characters won't show\n"
+    putStr "                  |         (___) (___)  ,., .    on terminal, but they're\n"
+    putStr "                  |                     ;:;:/     been recorded :)\n"
     putStr "                  '-----------------------´\n"
     putStr "    Press game key number ('q' to quit): \n"
 
-menuAction :: Char -> IO ()
-menuAction '1' = putStrLn "\ngame 1 not done yet..."
-menuAction '2' = putStrLn "\ngame 2 not done yet..."
-menuAction '3' = putStrLn "\ngame 3 not done yet..."
-menuAction '4' = putStrLn "\ngame 4 not done yet..."-- startGuessTheNumber
-menuAction 'p' = playerOptions
-menuAction 'q' = do
+-- menuAction :: Char -> Player j -> Player j -> (Player j, Player j) IO ()
+menuAction '1' twoPlayers = do putStrLn "\ngame 1 not done yet..."
+menuAction '2' twoPlayers = do putStrLn "\ngame 2 not done yet..."
+menuAction '3' twoPlayers = do putStrLn "\ngame 3 not done yet..."
+menuAction '4' twoPlayers = do startGuessTheNumber twoPlayers
+menuAction 'p' twoPlayers = do playerOptions twoPlayers
+menuAction 'q' twoPlayers = do
     putStrLn "\nQuitting game..."
     exitSuccess
-menuAction _ = putStrLn "\nInvalid option"
+menuAction _ twoPlayers = do
+    putStrLn "\nInvalid option"
+
+-- runGame :: (String t, String t) -> IO ()
+runGame twoPlayers = do
+    -- userName <- login
+    printMenu
+    choice <- readChar
+    menuAction choice twoPlayers
+    runGame twoPlayers
+    -- let player1 = p1
+    -- let player2 = p2
 
 main :: IO ()
 main = do
-    forever (printMenu >> readChar >>= menuAction)
+    userName <- login
+    runGame (userName, "")

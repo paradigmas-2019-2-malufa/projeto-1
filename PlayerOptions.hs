@@ -8,15 +8,17 @@ import PlayerModule
 import System.IO
 import Common
 
-printOptions :: IO ()
-printOptions = do
+printOptions :: Player j -> IO ()
+printOptions player1 = do
     myClearScreen
-    putStr "Choose an option:\n"
+    putStrLn "Player 1 info:"
+    showPlayer player1
+    putStr "\nChoose an option:\n"
     putStr "1) Show players hanking\n"
     putStr "2) Create player account\n"
     putStr "e) exit to menu\n"
 
-optionsAction '1' = do
+optionsAction '1' twoPlayers = do
     let playersIO = loadPlayers
     players <- playersIO
     if players == [] then do
@@ -29,18 +31,21 @@ optionsAction '1' = do
         showPlayers (sortPlayersByScore players)
         putStrLn "\n"
         pause
-        playerOptions
+        playerOptions twoPlayers
 
-optionsAction '2' = do createAccount
+optionsAction '2' twoPlayers = do createAccount
 
-optionsAction 'e' = do
+optionsAction 'e' twoPlayers = do
     putStrLn "going back to menu..."
 
-optionsAction _ = do
+optionsAction _ twoPlayers = do
     putStrLn "invalid option"
-    playerOptions
+    playerOptions twoPlayers
 
-playerOptions = do
-    printOptions
+playerOptions twoPlayers = do
+    let playerIO = loadPlayer (takeName1 twoPlayers)
+    player <- playerIO
+    printOptions player
+
     choice <- readChar
-    optionsAction choice
+    optionsAction choice twoPlayers

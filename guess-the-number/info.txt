@@ -1,5 +1,0 @@
-A game that the player has to guess the number that the
-computer chose randomly.
-The player types a number and the computer tells if
-this number is higher or above than the chosen number.
-

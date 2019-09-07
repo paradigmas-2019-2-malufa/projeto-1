@@ -2,6 +2,9 @@ module Common (
     myClearScreen,
     readChar,
     lowerString,
+    lowerChar,
+    takeName1,
+    takeName2,
     pause,
     notelem
 ) where
@@ -19,6 +22,9 @@ readChar = hSetBuffering stdin NoBuffering >> hSetEcho stdin False >> getChar
 
 lowerString = map toLower
 lowerChar char = toLower char
+
+takeName1 (name1, _) = name1
+takeName2 (_, name2) = name2
 
 pause = putStrLn "Press any key to continue..." >> readChar
 

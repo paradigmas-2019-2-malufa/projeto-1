@@ -2,6 +2,10 @@ module PlayerModule (
     Name,
     Score,
     Player,
+    nullPlayer,
+    takePlayer1,
+    takePlayer2,
+    playersFile,
     showPlayer,
     showPlayers,
     sortPlayersByScore,
@@ -20,6 +24,8 @@ module PlayerModule (
     parsePlayersList,
     savePlayers,
     loadPlayers,
+    loadPlayer,
+    savePlayerToFile,
     -- validStringName,
     validName,
     alphabet,
@@ -28,7 +34,8 @@ module PlayerModule (
     strIsAlphaNum,
     -- showError,
     -- newPlayer,
-    createAccount
+    createAccount,
+    login
 ) where 
 
 import Data.List
@@ -54,6 +61,11 @@ data Player j = Null | Player Name Score
     deriving (Eq, Show)
 
 firstCall = 0
+nullPlayer = Null
+playersFile = "players.txt"
+
+takePlayer1 (player1, _) = player1
+takePlayer2 (_, player2) = player2
 
 -- show player info as String
 showPlayer :: Player j -> IO ()
@@ -72,11 +84,11 @@ showPlayers players = do
 
 -- return players list sorted by higher score
 sortPlayersByScore :: [Player j] -> [Player j]
-sortPlayersByScore players = sortBy (\(Player a _) (Player b _) -> compare b a) players
+sortPlayersByScore players = sortBy (\(Player _ a) (Player _ b) -> (compare b a)) players
 
 -- return players list sorted by name
 sortPlayersByName :: [Player j] -> [Player j]
-sortPlayersByName players = sortBy (\(Player _ a) (Player _ b) -> compare a b) players
+sortPlayersByName players = sortBy (\(Player a _) (Player b _) -> compare a b) players
 
 -- get score from player
 getScore :: Player j -> Int
@@ -124,6 +136,10 @@ deletePlayer :: Player j -> [Player j] -> [Player j]
 deletePlayer player players = 
     deleteBy (\(Player nameA _) (Player nameB _) -> nameA==nameB) player players
 
+-- update a player in a list of players
+updatePlayerOnList :: Player j -> [Player j] -> [Player j]
+updatePlayerOnList player players = insertPlayer player (deletePlayer player players)
+
 -- add score to a player
 -- to subtract score, put number between parentheses: 
 --       ex: addScorePlayer (-3) player
@@ -141,10 +157,9 @@ addScorePlayerOnList :: Score -> Player j -> [Player j] -> [Player j]
 addScorePlayerOnList _ Null players = players
 addScorePlayerOnList score player [] = [addScorePlayer score player]
 addScorePlayerOnList score player players = 
-    insertPlayer addedPoints listWithoutPlayer
+    updatePlayerOnList playerAddedPoints players
     where
-        listWithoutPlayer = deletePlayer player players
-        addedPoints = addScorePlayer score player
+        playerAddedPoints = addScorePlayer score player
 
 -- takes a string from a list, like "jhon,3" and splits and
 -- insert in another list as a player
@@ -172,7 +187,7 @@ parsePlayersList players =
 
 -- save players to file
 savePlayers players = do
-    let filePlayersName = "arq.txt"
+    let filePlayersName = playersFile
     handle <- openFile filePlayersName WriteMode
     hPutStr handle $ unlines (parsePlayersList players)
     hClose handle
@@ -182,7 +197,7 @@ loadPlayers = do
     {catch (readFile) treat_error;}
     where
         readFile = do
-            handle <- openFile "arq.txt" ReadMode
+            handle <- openFile playersFile ReadMode
             contents <- hGetContents handle
             print contents
             let jogadores = splitAttributes (lines contents)
@@ -191,11 +206,25 @@ loadPlayers = do
             return jogadores
 
         treat_error err = if isDoesNotExistError err then do
-            handle <- openFile "arq.txt" WriteMode;
+            handle <- openFile playersFile WriteMode;
             hClose handle;
             return [];
         else
             ioError err
+
+loadPlayer playerName = do
+    let playersIO = loadPlayers
+    players <- playersIO
+    let player = getPlayerByName playerName players
+    -- let player <- getPlayerByName playerName players
+    -- player <- playerIO
+    return player
+
+savePlayerToFile player = do
+    let playersIO = loadPlayers
+    players <- playersIO
+    let updatedPlayerList = updatePlayerOnList player players
+    savePlayers updatedPlayerList
 
 alphabet = "abcdefghijklmnopqrstuvwxyz"
 numbers = "1234567890"
@@ -247,3 +276,32 @@ createAccount = do
                 putStrLn "going to menu..."
             else do
                 createAccount
+
+login = do
+    let playersIO = loadPlayers
+    players <- playersIO
+    myClearScreen
+    if players == [] then do
+        myClearScreen
+        putStr "There aren't players registered\nLet's create an account: \n"
+        pause
+        createAccount
+        newLogin <- login
+        return newLogin
+    else do
+        putStrLn "Type your name acount: "
+        nameupper <- getLine
+        let name = lowerString nameupper
+        let player = (Player name 0)
+        if (playerExists player players) then do
+            return name
+        else do
+            putStrLn ("This account name [" ++ name ++ "] doesn't exist")
+            putStrLn "do you want to register this account? (y/n)"
+            option <- readChar
+            if (lowerChar option)=='y' then do
+                savePlayerToFile player
+                return name
+            else do
+                newLogin <- login
+                return newLogin

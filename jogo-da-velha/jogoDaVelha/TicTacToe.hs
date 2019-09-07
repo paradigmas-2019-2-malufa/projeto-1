@@ -54,7 +54,6 @@ menu option = do
                 putStrLn "::::::::::::::::::::::::::::::::::::::: Tic Tac Toe :::::::::::::::::::::::::::::::::::::::"
                 putStrLn "\n1 - REGISTER A PLAYER"
                 putStrLn "2 - PLAY"
-                putStrLn "3 - RANKING VIEW"
                 putStrLn "0 - EXIT"
                 putStr "OPTION: "
                 op <- System.IO.getChar

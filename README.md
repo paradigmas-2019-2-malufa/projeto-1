@@ -51,5 +51,5 @@ $ ./minigames.out
 |16/0035481|Marcelo Araújo|[@santosm46](https://github.com/santosm46)|
 |15/0137290|Lucas Lopes Pereira|[@LucasPLopes](https://github.com/LucasPLopes)|
 |15/0042817|Matheus Clemente|[@matheusclemente](https://github.com/matheusclemente)|
-||Fabrício Monteiro|[@fabmont](https://github.com/fabmont)|
+|17/0102882|Fabrício Monteiro|[@fabmont](https://github.com/fabmont)|
 

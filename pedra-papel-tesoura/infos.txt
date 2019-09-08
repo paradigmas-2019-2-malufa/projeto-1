@@ -1,5 +1,0 @@
-
-será pessoa contra a máquina
-a máquina escolhe aleatoriamente entre pedra papel tesoura, 
-e o jogador faz sua escolha (1: pedra, 2: papel, 3: tesoura) 
-e mostra quem ganhou

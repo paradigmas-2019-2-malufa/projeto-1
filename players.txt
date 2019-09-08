@@ -1,5 +1,5 @@
-lucas,17
-fabiana,3
-fabricio,12
+matheus,12
 marcelo,5
-matheus,8
+lucas,17
+fabiana,13
+fabricio,12

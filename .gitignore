@@ -1,4 +1,5 @@
 *.txt
+players.txt
 .fuse*
 run.sh
 dist

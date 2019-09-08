@@ -4,6 +4,7 @@ import Control.Monad
 import Common
 import PlayerOptions (playerOptions)
 import GuessTheNumber (startGuessTheNumber)
+import RockPaperScissors (startRockPaperScissors)
 import PlayerModule
 
 -- Text ascii art generated with patorjk web site (http://patorjk.com/software/taag-v1/). font: big
@@ -43,7 +44,7 @@ printMenu = do
 
 -- menuAction :: Char -> Player j -> Player j -> (Player j, Player j) IO ()
 menuAction '1' twoPlayers = do putStrLn "\ngame 1 not done yet..."
-menuAction '2' twoPlayers = do putStrLn "\ngame 2 not done yet..."
+menuAction '2' twoPlayers = do startRockPaperScissors twoPlayers
 menuAction '3' twoPlayers = do putStrLn "\ngame 3 not done yet..."
 menuAction '4' twoPlayers = do startGuessTheNumber twoPlayers
 menuAction 'p' twoPlayers = do playerOptions twoPlayers

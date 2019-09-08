@@ -6,11 +6,10 @@ Project in Haskell
 This project resulted in the development of a Game Boy-inspired console game.
 The Game Boy is an 8-bit handheld game console developed and manufactured by Nintendo.
 
-There are 4 games in the project:
+There are 3 games in the project:
 
 * Tic-Tac-Toe game :o: :x:
 * Rock paper and scissors :facepunch: :hand: :v:
-* Hangman game :walking:
 * Guess the number :interrobang:
 
 To play them, you need to install the game module. Here are the steps to intall and start the game:

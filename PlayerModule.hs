@@ -1,7 +1,8 @@
 module PlayerModule (
+    Player,
     Name,
     Score,
-    Player,
+    newPlayerData,
     nullPlayer,
     takePlayer1,
     takePlayer2,
@@ -58,7 +59,7 @@ type Score = Int
 
 -- player data structure
 data Player j = Null | Player Name Score
-    deriving (Eq, Show)
+    deriving (Eq, Show, Read)
 
 firstCall = 0
 nullPlayer = Null
@@ -66,6 +67,9 @@ playersFile = "players.txt"
 
 takePlayer1 (player1, _) = player1
 takePlayer2 (_, player2) = player2
+
+newPlayerData :: Name -> Score -> Player j
+newPlayerData name score = (Player name score)
 
 -- show player info as String
 showPlayer :: Player j -> IO ()

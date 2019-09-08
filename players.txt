@@ -1,5 +1,8 @@
+lucas,17
+ana,3
+b,0
+a,6
+fabiana,10
 matheus,12
 marcelo,5
-lucas,17
-fabiana,13
 fabricio,12

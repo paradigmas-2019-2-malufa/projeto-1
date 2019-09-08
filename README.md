@@ -33,7 +33,7 @@ $ ./install_dependencies.sh
 
 4) To compile the game, type:
 ~~~
-$ ./compile
+$ ./compile.sh
 ~~~
 
 5) To run the game, type:
@@ -45,10 +45,11 @@ $ ./minigames.out
 
 ### Authors of the projects <br>
 
-|Name|GitHub|
-|   --  |   --  |
-|Fabiana Luiza V. Pfeilsticker Ribas|[@FabianaRibas](https://github.com/FabianaRibas)|
-|Marcelo Araújo|[@santosm46](https://github.com/santosm46)|
-|Lucas Lopes Pereira|[@LucasPLopes](https://github.com/LucasPLopes)|
-|Fabrício Monteiro|[@fabmont](https://github.com/fabmont)|
-|Matheus Clemente|[@matheusclemente](https://github.com/matheusclemente)|
+|Id|Name|GitHub|
+|   --  |   --  |   --  |
+|16/0005736|Fabiana Luiza V. Pfeilsticker Ribas|[@FabianaRibas](https://github.com/FabianaRibas)|
+|16/0035481|Marcelo Araújo|[@santosm46](https://github.com/santosm46)|
+|15/0137290|Lucas Lopes Pereira|[@LucasPLopes](https://github.com/LucasPLopes)|
+|15/0042817|Matheus Clemente|[@matheusclemente](https://github.com/matheusclemente)|
+||Fabrício Monteiro|[@fabmont](https://github.com/fabmont)|
+

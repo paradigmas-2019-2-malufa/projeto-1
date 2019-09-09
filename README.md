@@ -12,6 +12,8 @@ There are 3 games in the project:
 * Rock paper and scissors :facepunch: :hand: :v:
 * Guess the number :interrobang:
 
+The tic-tac-toe game was inspired by a haskell course available [here](https://www.udemy.com/course/curso-haskell/). Created by [Marcos Castro](https:\\github.com\marcoscastro). 
+
 To play them, you need to install the game module. Here are the steps to intall and start the game:
 
 ### For Linux Distribution :penguin: :

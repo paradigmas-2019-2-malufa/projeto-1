@@ -6,13 +6,16 @@ Project in Haskell
 This project resulted in the development of a Game Boy-inspired console game.
 The Game Boy is an 8-bit handheld game console developed and manufactured by Nintendo.
 
-There are 3 games in the project:
+There are 4 games in the project:
 
 * Tic-Tac-Toe game :o: :x:
 * Rock paper and scissors :facepunch: :hand: :v:
 * Guess the number :interrobang:
+* Sudoku :1234:
 
 The tic-tac-toe game was inspired by a haskell course available [here](https://www.udemy.com/course/curso-haskell/). Created by [Marcos Castro](https:\\github.com\marcoscastro). 
+
+The Sudoku game was adapted from an old sudoku game made by [Marcelo Araújo](https://github.com/santosm46), that's an integrant of this group, and was first published [here](https://github.com/marcelo046/sudoku_u) on his [old GitHub account](https://github.com/marcelo046).
 
 To play them, you need to install the game module. Here are the steps to intall and start the game:
 

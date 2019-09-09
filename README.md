@@ -1,6 +1,6 @@
 We are software engineering students at [University of Brasilia](https://www.unb.br)(UnB-FGA) studying programming paradigms with our teacher advisor [Milene Serrano](https://github.com/mileneserrano), and we developed this project in the 2nd semester of 2019.
 
-# Project 1
+# Haskell Project 1
 Project in Haskell 
 
 This project resulted in the development of a Game Boy-inspired console game.

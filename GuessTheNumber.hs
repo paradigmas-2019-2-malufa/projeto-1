@@ -31,7 +31,7 @@ getGuess (low, high) = do
 
 -- Function responsable for decide the situation of the player in the game.
 nextTurn secret guess (low, high) remainingAttempts
-    | remainingAttempts == -1 = return 0
+    | remainingAttempts == 0 = return 0
     | guess < low = turn secret (low, high) (show(guess) ++ "? Oh no, your guess is too low...") remainingAttempts
     | guess > high = turn secret (low, high) (show(guess) ++ "? Ouch! your guess is too high!") remainingAttempts
     | guess > secret = turn secret (low, guess - 1) (show(guess) ++ "? Try a lower number") remainingAttempts

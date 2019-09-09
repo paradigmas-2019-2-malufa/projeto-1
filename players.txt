@@ -1,5 +1,5 @@
+ana,6
 lucas,17
-ana,3
 b,0
 a,6
 fabiana,10
